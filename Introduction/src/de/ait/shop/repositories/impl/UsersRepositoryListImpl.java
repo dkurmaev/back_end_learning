@@ -23,10 +23,8 @@ public class UsersRepositoryListImpl implements UsersRepository {
 
     @Override
     public void save(User user) {
-        user.setId(generatedId++);
         users.add(user);
-
-
+        user.setId(generatedId++);
     }
 
     @Override
@@ -41,6 +39,15 @@ public class UsersRepositoryListImpl implements UsersRepository {
 
     @Override
     public User findeAllByEmail(String email) {
-        return null;
+//        for(User user : users) {
+//            if (user.getEmail().equals(email)) {
+//                return user;
+//            }
+//        }
+//        return null;
+        return users.stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst()
+                .orElse(null);
     }
 }
